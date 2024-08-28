@@ -161,7 +161,7 @@ def run_sequence(scf, sequence, path_name):
 
 if __name__ == '__main__':
     # URI to the Crazyflie to connect to
-    uri = uri_helper.uri_from_env(default='radio://0/100/2M/E7E7E7E7E7')
+    uri = uri_helper.uri_from_env(default='radio://0/120/2M/E7E7E7E7E7')
     path_name = "path_1"
 
     # Change the sequence according to your setup

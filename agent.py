@@ -3,6 +3,7 @@ import pandas as pd
 import csv 
 import threading
 import time
+from datetime import datetime
 import cflib.crtp
 from cflib.crazyflie import Crazyflie
 from cflib.crazyflie.log import LogConfig
@@ -44,7 +45,13 @@ def start_logging_state(scf):
 
     scf.cf.log.add_config(log_conf)
     log_conf.data_received_cb.add_callback(state_cb)
-    log_conf.start() 
+    log_conf.start()
+
+def write_action(state,action, start, end):
+    output = state + "," + action+","+start+","+end
+    with open("report.csv", "a") as file:
+        file.write(output+"\n")
+    
 
 if __name__ == '__main__':
     is_flying = 0
@@ -94,7 +101,7 @@ if __name__ == '__main__':
                 print("invalid args")
                 invalid = 1
                 continue
-            print(["State = ", state, "backward = ", backwrd])
+            print("State = " + str(state) +  " backward = " + str(backwrd)+ str(batt))
             try:
                 pos = [1.0,0.5,1.5]
                 thread = threading.Thread(target=keepPos, args=[scf,pos])
@@ -111,6 +118,10 @@ if __name__ == '__main__':
                 invalid = 1
                 continue
             print(action)
+            #write action file          
+            
+            
+            start_time = datetime.now().strftime(format="%H:%M:%S")
             if action != 3:
                 if charging:
                     print("Unplug now!")
@@ -151,6 +162,8 @@ if __name__ == '__main__':
             state_hist.append(state)
             #print(decision)
             invalid = 0
+            end_time = datetime.now().strftime(format="%H:%M:%S")
+            write_action(str(state), str(action), start_time, end_time)
         for i in range(0,50):
             scf.cf.commander.send_position_setpoint(0.5,0.5,0.15,0)
             time.sleep(0.1)

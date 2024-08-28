@@ -26,7 +26,7 @@ def get_state(voltage):
     else:
         return "-1"
 
-with open(file_name, "r") as file:
+"""with open(file_name, "r") as file:
     with open(output, "wb+") as out_file:
         line = file.readline()
         prev_line = "\n"
@@ -45,4 +45,4 @@ with open(file_name, "r") as file:
             line = file.readline()
         out_file.seek(-1,2)
         out_file.truncate()
-
+"""
