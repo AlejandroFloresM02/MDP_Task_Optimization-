@@ -65,7 +65,9 @@ if __name__ == '__main__':
     v_drop_c = 0.56
     charging = 0
 
-    queue = [1,2,2,0,0,2,1,1,2]
+    # temporal queue
+    #queue = [1,2,2,0,0,2,1,1,2]
+    queue = [1]
     decision =[]
     state_hist = []
     actions = ["path_1", "path_2", "path_3"]
@@ -101,7 +103,7 @@ if __name__ == '__main__':
                 print("invalid args")
                 invalid = 1
                 continue
-            print("State = " + str(state) +  " backward = " + str(backwrd)+ str(batt))
+            print("State = " + str(state) +  " backward = " + str(backwrd)+" "+str(batt))
             try:
                 pos = [1.0,0.5,1.5]
                 thread = threading.Thread(target=keepPos, args=[scf,pos])

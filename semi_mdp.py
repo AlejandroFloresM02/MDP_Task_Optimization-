@@ -101,7 +101,7 @@ def SMDPTransMat(state_list, exp_name):
 
                             
 if __name__ =="__main__":
-    exp = "path_3"
+    exp = "recharge"
     file = open("data/refined_data/" + exp + ".csv","r")
     #data = [4,4,4,4,3,3,4,3,4,3,3,3,4,3,3,3,3,3,2,2,2,3,2,2,2,2,2,2,2,1,1,1,2,1,1,1,1,1]
     data = [[int(x) for x in rec] for rec in csv.reader(file)]

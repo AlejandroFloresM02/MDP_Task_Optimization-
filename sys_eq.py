@@ -49,7 +49,6 @@ def getPolicy(actions):
     }
     all_actions = list(actions_struct.keys())
     actions = [all_actions[act] for act in actions]
-    #print(actions)
     actions.append("recharge")
     difference = list(set(actions_struct.keys())-set(actions))
     for action in difference: actions_struct.pop(action)
@@ -66,6 +65,7 @@ def getPolicy(actions):
     discount_fact = 0.85
 
     rewards = np.array([[int(x) for x in rec] for rec in csv.reader(open("data/rewards.csv"))])
+    print(rewards)
 
     iter_limit = 100
     states_amount = len(u_pairs)
@@ -97,13 +97,14 @@ def getPolicy(actions):
                     #print(trans_mats[actions[key]][:,0:2])
                     #print("state/bckwrd", u_pairs[state])
                     action_val += discount_fact * trans_mats[actions[key]][pair_index][next_state+2] * state_values[next_state]
+                    #print(action_val)
                 #print("Last for done")
                 action_values[actions[key]] = action_val
             #print("Second to last for done")
             new_state_values[state] = np.max(action_values)
         state_values = new_state_values
 
-    #print(state_values)
+    print(state_values)
 
 
     optimal_policy = np.zeros(states_amount, dtype=int)  # Inicializa una política arbitraria
@@ -136,5 +137,5 @@ def getPolicy(actions):
     return frame
 
 if __name__ == '__main__':
-    getPolicy([0,1,1,0,2,2])
+    print(getPolicy([1,2]))
     
